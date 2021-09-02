@@ -29,15 +29,14 @@ public class Generator {
         this.driver = new FirefoxDriver(options);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(120));
         this.driver.manage().window().maximize();
-        this.driver.get("https://www.mozilla.org/fr/about/");
-
     }
 
-    public void takeSS(String xpath) throws IOException {
+    public void takeSS(String url, String xpath, String path) throws IOException {
+        this.driver.get(url);
         WebElement element = this.driver.findElement(By.xpath(xpath));
         // capture screenshot with getScreenshotAs() of the dropdown
         File f = element.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(f, new File("/Users/idilsaglam/Documents/Makepad/SSgenerator/test101.png"));
+        FileUtils.copyFile(f, new File(path));
         driver.quit();
     }
 }
