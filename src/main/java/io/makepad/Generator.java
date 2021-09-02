@@ -23,12 +23,14 @@ import java.time.Duration;
 public class Generator {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
+    public String aPath;
 
-    public Generator() throws IOException {
+    public Generator(String path) throws IOException {
         FirefoxOptions options = new FirefoxOptions();
         this.driver = new FirefoxDriver(options);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(120));
         this.driver.manage().window().maximize();
+        this.aPath = path;
     }
 
     public void takeSS(String url, String xpath, String path) throws IOException {
@@ -36,7 +38,7 @@ public class Generator {
         WebElement element = this.driver.findElement(By.xpath(xpath));
         // capture screenshot with getScreenshotAs() of the dropdown
         File f = element.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(f, new File(path));
+        FileUtils.copyFile(f, new File(aPath+path));
         driver.quit();
     }
 }
